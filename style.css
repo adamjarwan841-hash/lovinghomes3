@@ -1,0 +1,2938 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* ===== الأداء وتحسين سرعة التحميل ===== */
+/* تحسين الصورة */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    /* تحسين عرض الصور */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* تحميل كسول للصور --placeholder */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+img.loaded {
+    opacity: 1;
+}
+
+/* تحسين الأداء للحركة */
+@media (prefers-reduced-motion: no-preference) {
+    .animate-on-scroll {
+        will-change: transform, opacity;
+    }
+}
+
+/* تحسين الـ scroll */
+html {
+    scroll-behavior: smooth;
+    /* تحسين الـ scroll performance */
+    scroll-padding-top: 80px;
+}
+
+body {
+    overflow-x: hidden;
+    /* تحسين الأداء */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+
+:root {
+    --main-blue: #0059BD;
+    --accent-orange: #ff8c00;
+    --bg-light: #f4f4f4;
+    --text-dark: #333333;
+    --white: #ffffff;
+    --shadow-sm: 0 5px 15px rgba(0,0,0,0.08);
+    --shadow-md: 0 10px 25px rgba(0,89,189,0.15);
+    --shadow-lg: 0 15px 35px rgba(0,89,189,0.2);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* الوضع النهاري (افتراضي) */
+body {
+    background-color: var(--bg-light);
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== الوضع الليلي ===== */
+body.night-mode {
+    --main-blue: #4d8cd4;
+    --accent-orange: #ffa64d;
+    --bg-light: #1a1a2e;
+    --text-dark: #e0e0e0;
+    --white: #2d2d44;
+    background-color: #16213e;
+    color: #f0f0f0;
+}
+
+body.night-mode header {
+    background: #0f3460 !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+body.night-mode .package-card,
+body.night-mode .facility-item,
+body.night-mode .booking-flat-card,
+body.night-mode .about-exclusive-card,
+body.night-mode .form-white-flat-card {
+    background: #1a1a2e !important;
+    color: #e0e0e0;
+    border: 1px solid #2d2d44;
+}
+
+body.night-mode .btn-orange,
+body.night-mode .booking-btn,
+body.night-mode .submit-btn {
+    background: #ffa64d;
+    color: #1a1a2e;
+}
+
+body.night-mode .btn-orange:hover,
+body.night-mode .booking-btn:hover,
+body.night-mode .submit-btn:hover {
+    background: #ff8c00;
+    box-shadow: 0 8px 20px rgba(255,164,77,0.3);
+}
+
+/* ===== تنسيقات عامة محسنة ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0,89,189,0.08);
+    transition: var(--transition);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* تحسين شريط التنقل */
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--main-blue);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: var(--accent-orange);
+    transition: var(--transition);
+    z-index: -1;
+    border-radius: 30px;
+}
+
+nav ul li a:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+nav ul li a:hover::before {
+    height: 100%;
+}
+
+nav ul li a.active {
+    background: var(--main-blue);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,89,189,0.3);
+}
+
+nav ul li a.active::before {
+    display: none;
+}
+
+/* تحسين الأزرار */
+.btn-orange, 
+.booking-btn, 
+.submit-btn,
+.settings-floating-btn {
+    background: linear-gradient(135deg, var(--accent-orange), #ff6b00);
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(255,140,0,0.2);
+}
+
+.btn-orange:hover, 
+.booking-btn:hover, 
+.submit-btn:hover,
+.settings-floating-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255,140,0,0.4);
+}
+
+.btn-orange:active, 
+.booking-btn:active, 
+.submit-btn:active,
+.settings-floating-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(255,140,0,0.3);
+}
+
+/* تحسين البطاقات */
+.package-card {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,89,189,0.05);
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.package-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--main-blue), var(--accent-orange));
+}
+
+.package-card .price {
+    font-size: 2.5rem;
+    color: var(--accent-orange);
+    margin: 15px 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* تحسين الفوتر */
+.main-footer {
+    background: linear-gradient(135deg, #186abb, #061d33);
+    color: white;
+    padding: 60px 8%;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-footer::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,140,0,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+/* ===== تحسينات صفحة المساعدة (FAQ) ===== */
+.faq-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.faq-header h1 {
+    color: var(--main-blue);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.faq-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--main-blue), var(--accent-orange));
+    border-radius: 2px;
+}
+
+.faq-questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-block {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+body.night-mode .faq-block {
+    background: #1a1a2e;
+}
+
+.faq-question {
+    padding: 20px 25px;
+    background: linear-gradient(135deg, var(--main-blue), #004494);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.faq-question:hover {
+    background: linear-gradient(135deg, #004494, var(--main-blue));
+    padding-right: 30px;
+}
+
+.faq-question i {
+    font-size: 1.2rem;
+    transition: transform 0.4s ease;
+}
+
+.faq-question.active i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+}
+
+body.night-mode .faq-answer {
+    background: #1a1a2e;
+    color: #e0e0e0;
+}
+
+.faq-answer.show {
+    max-height: 500px;
+}
+
+.faq-answer p {
+    padding: 25px;
+    margin: 0;
+    line-height: 1.8;
+    color: #555;
+}
+
+body.night-mode .faq-answer p {
+    color: #e0e0e0;
+}
+
+/* تحسين صفحات الحجز */
+.booking-page-wrapper {
+    min-height: 100vh;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+}
+
+body.night-mode .booking-page-wrapper {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.booking-flat-card {
+    background: white;
+    border-radius: 40px !important;
+    padding: 50px !important;
+    box-shadow: 0 20px 40px rgba(0,89,189,0.15);
+    max-width: 800px;
+    margin: 0 auto;
+    transition: var(--transition);
+}
+
+.booking-flat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,89,189,0.2);
+}
+
+.form-title,
+.form-title-classic,
+.form-title-day {
+    color: var(--main-blue);
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.form-title::after,
+.form-title-classic::after,
+.form-title-day::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--main-blue), var(--accent-orange));
+    border-radius: 2px;
+}
+
+/* تحسين حقول الإدخال */
+.input-row {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f8f9fa;
+    padding: 5px 20px;
+    border-radius: 50px;
+    transition: var(--transition);
+}
+
+body.night-mode .input-row {
+    background: #2d2d44;
+}
+
+.input-row:hover {
+    box-shadow: 0 5px 15px rgba(0,89,189,0.1);
+    transform: scale(1.02);
+}
+
+.input-row:focus-within {
+    box-shadow: 0 5px 20px rgba(255,140,0,0.2);
+    border-left: 4px solid var(--accent-orange);
+}
+
+.input-row label {
+    min-width: 150px;
+    font-weight: 600;
+    color: var(--main-blue);
+}
+
+.input-row input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 15px 5px;
+    font-size: 1rem;
+    outline: none;
+    color: var(--text-dark);
+}
+
+/* رسالة الشكر المنبثقة */
+.thankyou-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 30px 50px;
+    border-radius: 60px;
+    box-shadow: 0 20px 40px rgba(40,167,69,0.3);
+    z-index: 10000;
+    text-align: center;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 3px solid white;
+}
+
+.thankyou-message.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.thankyou-message i {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.thankyou-message h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.thankyou-message p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* تحسين خيارات الـ checkbox */
+.checkbox-options {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 30px;
+    margin: 30px 0;
+}
+
+body.night-mode .checkbox-options {
+    background: #2d2d44;
+}
+
+.checkbox-options p {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.checkbox-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: white;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+body.night-mode .checkbox-options label {
+    background: #1a1a2e;
+    color: white;
+}
+
+.checkbox-options label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,89,189,0.2);
+}
+
+.checkbox-options input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-orange);
+}
+
+/* تحسين زر الإعدادات */
+.settings-floating-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 0;
+    font-size: 1.8rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-floating-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* تحسين الوضع الليلي */
+.night-mode .settings-floating-btn {
+    background: var(--accent-orange);
+}
+
+
+
+/* تحسينات متجاوبة */
+@media (max-width: 768px) {
+    nav ul {
+        gap: 15px;
+    }
+    
+    .input-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        border-radius: 25px;
+    }
+    
+    .input-row label {
+        min-width: auto;
+    }
+    
+    .thankyou-message {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .thankyou-message i {
+        font-size: 3rem;
+    }
+    
+    .thankyou-message h3 {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* ===== تنسيق زر الإعدادات ===== */
+.settings-floating-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #224a77;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 9999;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.settings-floating-btn:hover {
+    background-color: #0059BD;
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,89,189,0.4);
+}
+
+/* ===== نافذة الإعدادات المنبثقة ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    direction: rtl;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.modal-title {
+    color: #0059BD;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.setting-item {
+    margin-bottom: 30px;
+}
+
+#fontSizeLabel {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.font-slider {
+    width: 100%;
+    cursor: pointer;
+    accent-color: #ff8c00;
+}
+
+.slider-labels {
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 14px; 
+    margin-top: 10px;
+    color: #666;
+}
+
+.close-red-btn {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.close-red-btn:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+
+
+
+/* ===== تنسيق زر الإعدادات ===== */
+.settings-floating-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 100px;
+    background: linear-gradient(135deg, #224a77, #0059BD);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    
+}
+
+.settings-floating-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,89,189,0.4);
+}
+
+/* ===== نافذة الإعدادات المنبثقة ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 350px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    direction: rtl;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.modal-title {
+    color: #0059BD;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.setting-item {
+    margin-bottom: 30px;
+}
+
+#fontSizeLabel {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.font-slider {
+    width: 100%;
+    cursor: pointer;
+    accent-color: #ff8c00;
+}
+
+.slider-labels {
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 14px; 
+    margin-top: 10px;
+    color: #666;
+}
+
+/* ===== زر الوضع الليلي المنسق ===== */
+.night-mode-btn {
+    background: linear-gradient(135deg, #0059BD, #224a77);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,89,189,0.3);
+}
+
+.night-mode-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,89,189,0.5);
+}
+
+.night-mode-btn i {
+    font-size: 1.2rem;
+}
+
+/* تنسيق الزر في الوضع الليلي */
+body.night-mode .night-mode-btn {
+    background: linear-gradient(135deg, #ffa64d, #ff8c00);
+    color: #1a1a2e;
+}
+
+.close-red-btn {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.close-red-btn:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+/* إزالة أي تأثير لزر العودة للأعلى نهائياً */
+.back-to-top-btn, 
+#backToTop,
+.scroll-top,
+.progress-bar {
+    display: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+    --main-blue: #0059BD;
+    --accent-orange: #ff8c00;
+    --bg-light: #f4f4f4;
+}
+
+
+.hero-container {
+    padding: 40px 10%;
+    position: relative;
+}
+
+.settings-icon {
+    position: absolute;
+    left: 12%;
+    top: 50px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.settings-icon img { width: 35px; }
+.settings-icon:hover { transform: rotate(90deg); }
+
+.hero-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hero-image {
+    position: relative;
+    height: 300px;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0059BD;
+    font-size: 2.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+.hero-content {
+    padding: 30px;
+    text-align: center;
+    color: #555;
+}
+
+/* الأيقونات السفلية */
+.quick-icons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 30px;
+}
+
+.icon-item {
+    text-align: center;
+    color: var(--main-blue);
+    cursor: pointer;
+}
+
+.icon-item i {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 10px;
+    color: var(--accent-orange);
+}
+
+/* الفوتر */
+.main-footer {
+    background-color: #224a77; /* اللون الأزرق الملكي الخاص بك */
+    color: #ffffff;
+    padding: 50px 8%;
+    direction: rtl;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+}
+
+.footer-logo img {
+    width: 140px;
+    height: auto;
+    margin-top: 90px;
+}
+
+
+/* حاوية الأعمدة */
+.footer-columns-wrapper {
+    display: flex;
+    justify-content: space-between; /* توزيع الأعمدة على الأطراف */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* محاذاة العناصر داخل العمود لليمين */
+    gap: 12px;
+}
+
+.contact-row img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+
+/* تنسيق الصورة في الهيدر */
+.logo img {
+    width: 120px; /* قم بتغيير هذا الرقم لتصغير الصورة أو تكبيرها كما تريد */
+    height: auto;
+    margin: 20; /* للحفاظ على أبعاد الصورة الأصلية دون تشويه */
+}
+
+/* تنسيق الصورة الترحيبية (إذا أردت تصغيرها) */
+.hero-image img {
+    width: 100%; /* تصغير الصورة لتأخذ نصف عرض الحاوية */
+    height: auto;
+}
+
+
+
+
+
+
+
+.facility-item p{
+    text-align: start;
+}
+
+.facility-item {
+    display: flex; /* تفعيل خاصية الاصطفاف الجانبي */
+    align-items: center; /* موازنة النص والصورة عمودياً */
+    gap: 20px; /* المسافة الفاصلة بين النص والصورة */
+    margin-bottom: 20px; /* مسافة بين المرفق الأول والثاني */
+    direction: rtl; /* لضمان أن النص على اليمين والصورة على اليسار */
+}
+
+.facility-text {
+    flex: 1;
+    padding-left: 200px; /* جعل النص يأخذ المساحة المتاحة */
+}
+
+.facility-image {
+    flex: 1; /* جعل حاوية الصورة تأخذ مساحة متساوية */
+}
+
+.facility-image img {
+    width: 100%; /* لتأخذ الصورة عرض الحاوية الخاص بها */
+    max-width: 500px; /* أقصى عرض للصورة كما في تصاميمك */
+    border-radius: 20px; /* زوايا منحنية للصورة لتطابق Moodboard مشروعك */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* ظل خفيف للصورة */
+}
+
+/* لتغيير الترتيب في المرفق الثاني (اختياري: صورة يمين نص يسار) */
+.facility-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+
+
+/* الحل النهائي لتصغير الصورة */
+.about-resized-image {
+    width: 900px !important; /* غير هذا الرقم لتتحكم في حجم الصورة بدقة */
+    height: auto !important;
+    max-width: 100% !important;
+    border-radius: 20px !important;
+    margin-bottom: 25px !important;
+    display: block !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
+
+/* ===== تنسيق العناوين الرئيسية في المنتصف ===== */
+h1, 
+.about-page-title,
+.facilities-container h1,
+.help-page-container h1,
+.booking-cta h2,
+.form-title,
+.form-title-classic,
+.form-title-day,
+.contact-form-wrapper h2,
+.faq-header h1 {
+    text-align: center !important;
+    width: 100%;
+    font-size: 2.5rem !important; /* تكبير الخط */
+    margin: 30px auto !important;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* خط زخرفي تحت العنوان */
+h1::after,
+.about-page-title::after,
+.facilities-container h1::after,
+.help-page-container h1::after,
+.booking-cta h2::after,
+.form-title::after,
+.form-title-classic::after,
+.form-title-day::after,
+.contact-form-wrapper h2::after,
+.faq-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--main-blue), var(--accent-orange));
+    border-radius: 2px;
+}
+
+/* ===== تنسيق زر الحجز ليكون في المنتصف وبحجم كبير ===== */
+.booking-btn,
+.btn-orange,
+.submit-btn,
+.package-card .btn-orange,
+.booking-flat-card .booking-btn {
+    display: block !important;
+    margin: 30px auto !important;
+    width: 300px !important; /* عرض ثابت */
+    max-width: 80%; /* للشاشات الصغيرة */
+    text-align: center !important;
+    font-size: 1.5rem !important; /* خط كبير */
+    padding: 15px 30px !important;
+    border-radius: 60px !important; /* حواف دائرية */
+    background: linear-gradient(135deg, #ff8c00, #ff6b00);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(255,140,0,0.3);
+}
+
+/* تأثير عند تمرير الماوس */
+.booking-btn:hover,
+.btn-orange:hover,
+.submit-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255,140,0,0.4);
+}
+
+/* تأثير عند الضغط */
+.booking-btn:active,
+.btn-orange:active,
+.submit-btn:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* تنسيق الزر في حالة التعطيل */
+.booking-btn:disabled,
+.btn-orange:disabled {
+    background: #ccc !important;
+    box-shadow: none !important;
+    transform: none !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ===== تنسيق للشاشات الصغيرة ===== */
+@media screen and (max-width: 768px) {
+    h1, 
+    .about-page-title,
+    .facilities-container h1,
+    .help-page-container h1,
+    .booking-cta h2,
+    .form-title,
+    .form-title-classic,
+    .form-title-day {
+        font-size: 2rem !important;
+    }
+    
+    .booking-btn,
+    .btn-orange,
+    .submit-btn {
+        width: 250px !important;
+        font-size: 1.3rem !important;
+        padding: 12px 20px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1, 
+    .about-page-title,
+    .facilities-container h1,
+    .help-page-container h1,
+    .booking-cta h2,
+    .form-title,
+    .form-title-classic,
+    .form-title-day {
+        font-size: 1.8rem !important;
+    }
+    
+    .booking-btn,
+    .btn-orange,
+    .submit-btn {
+        width: 200px !important;
+        font-size: 1.2rem !important;
+        padding: 10px 15px !important;
+    }
+}
+
+/* ===== تنسيق الوضع الليلي ===== */
+body.night-mode h1,
+body.night-mode .about-page-title,
+body.night-mode .facilities-container h1,
+body.night-mode .help-page-container h1,
+body.night-mode .booking-cta h2,
+body.night-mode .form-title,
+body.night-mode .form-title-classic,
+body.night-mode .form-title-day {
+    color: #fff;
+}
+
+body.night-mode .booking-btn,
+body.night-mode .btn-orange,
+body.night-mode .submit-btn {
+    background: linear-gradient(135deg, #ffa64d, #ff8c00);
+    color: #1a1a2e;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ===== رسائل الخطأ ===== */
+.error-message {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-right: 10px;
+    display: none;
+    align-items: center;
+    gap: 5px;
+}
+
+.error-message.show {
+    display: flex;
+}
+
+.error-message i {
+    font-size: 1rem;
+}
+
+.input-row.error input {
+    border-bottom-color: #ff0000 !important;
+    color: #ff0000;
+}
+
+.input-row.error label {
+    color: #ff0000;
+}
+
+/* تنسيق للوضع الليلي */
+body.night-mode .error-message {
+    color: #ff6b6b;
+}
+
+body.night-mode .input-row.error input {
+    border-bottom-color: #ff6b6b !important;
+    color: #ff6b6b;
+}
+
+
+
+/* ===== تنسيق الصور في المنتصف ===== */
+.about-img-box,
+.about-resized-image,
+.about-exclusive-card img,
+.help-page-container img,
+.faq-section img,
+.about-main-container img {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+}
+
+.about-img-box {
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 30px !important;
+}
+
+.about-resized-image {
+    max-width: 80% !important;
+    height: auto !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* تنسيق خاص لصفحة المساعدة */
+.about-exclusive-card .about-img-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.about-exclusive-card .about-img-box img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* ===== تحسين للشاشات الصغيرة ===== */
+@media screen and (max-width: 768px) {
+    .about-resized-image {
+        max-width: 95% !important;
+    }
+    
+    .about-exclusive-card .about-img-box img {
+        max-width: 95%;
+    }
+}
+
+
+/* ===== تنسيق نموذج التواصل في صفحة المساعدة ===== */
+.contact-form-wrapper {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+}
+
+body.night-mode .contact-form-wrapper {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+.form-white-flat-card {
+    background: white !important;
+    max-width: 700px;
+    width: 100%;
+    padding: 50px !important;
+    border-radius: 40px !important;
+    box-shadow: 0 20px 40px rgba(0,89,189,0.15) !important;
+    transition: all 0.3s ease;
+}
+
+body.night-mode .form-white-flat-card {
+    background: #1a1a2e !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
+}
+
+.form-white-flat-card h2 {
+    color: var(--main-blue);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.form-white-flat-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--main-blue), var(--accent-orange));
+    border-radius: 2px;
+}
+
+.form-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+body.night-mode .form-intro {
+    color: #e0e0e0;
+}
+
+.loving-homes-form {
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: right;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    color: var(--main-blue);
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    font-family: 'Cairo', sans-serif;
+}
+
+body.night-mode .input-group input,
+body.night-mode .input-group textarea,
+body.night-mode .input-group select {
+    background: #2d2d44;
+    border-color: #3d3d5a;
+    color: white;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 4px rgba(255,140,0,0.1);
+    transform: translateY(-2px);
+}
+
+.input-group input:hover,
+.input-group textarea:hover,
+.input-group select:hover {
+    border-color: var(--main-blue);
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* تنسيق مجموعة خيارات الحزمة */
+.package-selection {
+    margin-bottom: 25px;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+body.night-mode .package-selection {
+    background: #2d2d44;
+}
+
+.package-selection label {
+    display: block;
+    font-weight: bold;
+    color: var(--main-blue);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
+    margin: 0;
+    font-weight: normal;
+    color: #555;
+}
+
+body.night-mode .checkbox-group label {
+    background: #1a1a2e;
+    border-color: #3d3d5a;
+    color: #e0e0e0;
+}
+
+.checkbox-group label:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255,140,0,0.2);
+    border-color: var(--accent-orange);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-orange);
+}
+
+.form-footer-note {
+    text-align: center;
+    color: #666;
+    margin: 30px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    font-size: 1rem;
+}
+
+body.night-mode .form-footer-note {
+    background: #2d2d44;
+    color: #e0e0e0;
+}
+
+/* زر الإرسال */
+.submit-btn {
+    background: linear-gradient(135deg, #ff8c00, #ff6b00);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    border-radius: 60px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 300px;
+    max-width: 100%;
+    margin: 20px auto !important;
+    display: block !important;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(255,140,0,0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(255,140,0,0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(-2px) scale(1);
+}
+
+/* رسائل الخطأ للنموذج */
+.input-group.error input,
+.input-group.error textarea,
+.input-group.error select {
+    border-color: #ff0000;
+    background: #fff0f0;
+}
+
+body.night-mode .input-group.error input,
+body.night-mode .input-group.error textarea,
+body.night-mode .input-group.error select {
+    background: #3d2d2d;
+    border-color: #ff6b6b;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.error-message i {
+    font-size: 1rem;
+}
+
+/* ===== تنسيق للشاشات الصغيرة ===== */
+@media screen and (max-width: 768px) {
+    .form-white-flat-card {
+        padding: 30px 20px !important;
+    }
+    
+    .form-white-flat-card h2 {
+        font-size: 1.8rem;
+    }
+    
+    .checkbox-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .checkbox-group label {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .submit-btn {
+        width: 250px;
+        font-size: 1.2rem;
+        padding: 15px 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form-white-flat-card {
+        padding: 20px 15px !important;
+    }
+    
+    .form-white-flat-card h2 {
+        font-size: 1.5rem;
+    }
+    
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        padding: 12px 15px;
+    }
+    
+    .submit-btn {
+        width: 200px;
+        font-size: 1.1rem;
+        padding: 12px 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== تحسينات متقدمة للتجاوب مع جميع الأجهزة ===== */
+
+/* إعدادات أساسية */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* تحسين الحاويات الرئيسية */
+.container, 
+.hero-container,
+.packages-container,
+.facilities-container,
+.about-main-container,
+.help-page-container,
+.booking-page-wrapper,
+.contact-form-wrapper,
+.page-title,
+.faq-section,
+.footer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* تحسين الصور */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ===== للشاشات الكبيرة جداً (4K) ===== */
+@media screen and (min-width: 1400px) {
+    html {
+        font-size: 18px;
+    }
+    
+    .container, 
+    .hero-container,
+    .packages-container,
+    .facilities-container,
+    .about-main-container,
+    .help-page-container,
+    .booking-page-wrapper,
+    .contact-form-wrapper {
+        max-width: 1400px;
+    }
+}
+
+/* ===== للشاشات المتوسطة (لابتوب) ===== */
+@media screen and (max-width: 1200px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .packages-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 25px;
+    }
+}
+
+/* ===== للتابلت ===== */
+@media screen and (max-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+    
+    /* تحسين الهيدر */
+    header {
+        flex-direction: column;
+        padding: 15px !important;
+    }
+    
+    .logo {
+        margin-bottom: 15px;
+    }
+    
+    .logo img {
+        width: 100px !important;
+    }
+    
+    nav ul {
+        gap: 20px !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    /* تحسين الحزم */
+    .packages-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* تحسين المرافق */
+    .facility-item {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    .facility-item:nth-child(even) {
+        flex-direction: column !important;
+    }
+    
+    .facility-text {
+        padding-left: 0 !important;
+    }
+    
+    /* تحسين الفوتر */
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .footer-columns-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .contact-row {
+        justify-content: center !important;
+    }
+}
+
+/* ===== للجوال الكبير ===== */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    /* تحسين العناوين */
+    h1, 
+    .about-page-title,
+    .facilities-container h1,
+    .help-page-container h1,
+    .booking-cta h2,
+    .form-title,
+    .form-title-classic,
+    .form-title-day,
+    .contact-form-wrapper h2,
+    .faq-header h1 {
+        font-size: 2rem !important;
+    }
+    
+    /* تحسين الحزم */
+    .packages-container {
+        grid-template-columns: 1fr !important;
+        padding: 20px !important;
+    }
+    
+    .package-card {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
+    }
+    
+    /* تحسين نماذج الحجز */
+    .booking-flat-card {
+        padding: 30px 20px !important;
+    }
+    
+    .input-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 15px !important;
+    }
+    
+    .input-row label {
+        min-width: auto !important;
+    }
+    
+    .input-row input {
+        width: 100% !important;
+    }
+    
+    /* تحسين زر الحجز */
+    .booking-btn,
+    .btn-orange,
+    .submit-btn {
+        width: 250px !important;
+        font-size: 1.3rem !important;
+        padding: 12px 20px !important;
+    }
+    
+    /* تحسين خيارات الحزمة */
+    .checkbox-options p {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+    
+    .checkbox-options label {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    /* تحسين الفوتر */
+    .footer-logo img {
+        margin-top: 20px !important;
+    }
+    
+    /* تحسين نموذج التواصل */
+    .checkbox-group {
+        flex-direction: column !important;
+    }
+    
+    .checkbox-group label {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    /* تحسين الأسئلة الشائعة */
+    .faq-question {
+        font-size: 1rem !important;
+        padding: 15px !important;
+    }
+    
+    .faq-answer p {
+        padding: 15px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    /* تحسين أيقونات التحكم */
+    .quick-icons {
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+    }
+    
+    .icon-item {
+        flex: 1 1 80px;
+    }
+}
+
+/* ===== للجوال الصغير ===== */
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+    
+    /* تحسين العناوين */
+    h1, 
+    .about-page-title,
+    .facilities-container h1,
+    .help-page-container h1,
+    .booking-cta h2,
+    .form-title,
+    .form-title-classic,
+    .form-title-day,
+    .contact-form-wrapper h2,
+    .faq-header h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    /* تحسين البطاقات */
+    .package-card {
+        padding: 15px !important;
+    }
+    
+    .price {
+        font-size: 2rem !important;
+    }
+    
+    /* تحسين الأزرار */
+    .booking-btn,
+    .btn-orange,
+    .submit-btn,
+    .settings-floating-btn {
+        width: 200px !important;
+        font-size: 1.1rem !important;
+        padding: 10px 15px !important;
+    }
+    
+    /* تحسين الحقول */
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        padding: 10px 12px !important;
+    }
+    
+    /* تحسين الصور */
+    .about-resized-image {
+        max-width: 95% !important;
+    }
+    
+    /* تحسين نافذة الإعدادات */
+    .modal-content {
+        width: 90% !important;
+        padding: 20px !important;
+    }
+    
+    /* تحسين الفوتر */
+    .footer-info h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .contact-row span {
+        font-size: 0.9rem !important;
+    }
+    
+    .contact-row img {
+        width: 16px !important;
+        height: 16px !important;
+    }
+}
+
+/* ===== تحسينات إضافية ===== */
+
+/* تحسين عرض الجداول */
+table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+
+/* تحسين الأزرار للمس */
+button, 
+.btn, 
+.btn-orange, 
+.booking-btn, 
+.submit-btn,
+.settings-floating-btn,
+.night-mode-btn {
+    min-height: 44px; /* تحسين للمس على الجوال */
+    -webkit-tap-highlight-color: transparent; /* إزالة التمييز عند الضغط */
+}
+
+/* تحسين التمرير */
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* إخفاء عناصر للجوال */
+@media screen and (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+/* إظهار عناصر للجوال */
+@media screen and (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+/* تحسين الطباعة */
+@media print {
+    header, 
+    footer, 
+    nav, 
+    .quick-icons,
+    .booking-btn,
+    .submit-btn,
+    .settings-floating-btn,
+    .modal-overlay {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* ===== نظام Grid مرن ===== */
+.grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* ===== نظام Flexbox مرن ===== */
+.flex-responsive {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.flex-responsive > * {
+    flex: 1 1 250px;
+}
+
+/* ===== Mobile Header Scroll Behavior (hide on scroll down, show on scroll up) ===== */
+
+/* Mobile styles for header scroll behavior */
+@media (max-width: 768px) {
+    /* Header with transition for scroll behavior */
+    header {
+        transition: transform 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    /* Hidden state for scroll down - header moves up and disappears */
+    header.header-hidden {
+        transform: translateY(-100%);
+    }
+}
+
+
+
+
+
+
+
+/* ===== Smart Package Customizer - Fixed Styles ===== */
+
+/* Button to open customizer */
+.btn-customizer {
+    display: block;
+    margin: 30px auto;
+    padding: 16px 35px;
+    background: linear-gradient(135deg, #0059BD, #004494);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 89, 189, 0.3);
+    font-family: 'Cairo', sans-serif;
+    position: relative;
+    z-index: 100;
+}
+
+.btn-customizer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 89, 189, 0.4);
+}
+
+.btn-customizer i {
+    margin-left: 8px;
+}
+
+/* Modal Overlay */
+.customizer-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 20000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.customizer-overlay.active {
+    display: flex;
+}
+
+/* Modal Container */
+.customizer-container {
+    background: #ffffff;
+    border-radius: 25px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.customizer-header {
+    background: linear-gradient(135deg, #0059BD, #004494);
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.customizer-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+.customizer-header h2 i {
+    margin-left: 8px;
+    color: #ff8c00;
+}
+
+.close-customizer {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-customizer:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: rotate(90deg);
+}
+
+/* Body - Scrollable */
+.customizer-body {
+    padding: 20px 25px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Steps */
+.customizer-step {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #eee;
+}
+
+.customizer-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.customizer-step h3 {
+    color: #0059BD;
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+    font-family: 'Cairo', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-number {
+    background: #ff8c00;
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Duration Selector */
+.duration-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.duration-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #0059BD;
+    background: white;
+    color: #0059BD;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.duration-btn:hover {
+    background: #0059BD;
+    color: white;
+}
+
+#stayDuration {
+    width: 70px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: 2px solid #0059BD;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.duration-label {
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Care Level Options */
+.care-level-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.care-option {
+    cursor: pointer;
+}
+
+.care-option input {
+    display: none;
+}
+
+.care-option-content {
+    padding: 15px 10px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+.care-option-content i {
+    font-size: 1.6rem;
+    color: #0059BD;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.care-option-content span {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.95rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+.care-option-content small {
+    display: block;
+    color: #666;
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+.care-option input:checked + .care-option-content {
+    border-color: #ff8c00;
+    background: #fff8f0;
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.2);
+}
+
+.care-option:hover .care-option-content {
+    border-color: #0059BD;
+}
+
+/* Walking Selector */
+.walking-selector {
+    text-align: center;
+}
+
+.walking-selector input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 4px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+    margin: 15px 0;
+}
+
+.walking-selector input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ff8c00;
+    cursor: pointer;
+}
+
+.walking-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #666;
+    padding: 0 5px;
+}
+
+.walking-value {
+    margin-top: 12px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.walking-value strong {
+    color: #ff8c00;
+    font-size: 1.2rem;
+}
+
+/* Activities Grid */
+.activities-grid,
+.extras-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.activity-item,
+.extra-item {
+    cursor: pointer;
+}
+
+.activity-item input,
+.extra-item input {
+    display: none;
+}
+
+.activity-content,
+.extra-content {
+    padding: 12px 8px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+.activity-content i,
+.extra-content i {
+    font-size: 1.3rem;
+    color: #0059BD;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.activity-content span,
+.extra-content span {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.85rem;
+    font-family: 'Cairo', sans-serif;
+}
+
+.activity-content small,
+.extra-content small {
+    display: block;
+    color: #ff8c00;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.activity-item input:checked + .activity-content,
+.extra-item input:checked + .extra-content {
+    border-color: #ff8c00;
+    background: #fff8f0;
+}
+
+.activity-item:hover .activity-content,
+.extra-item:hover .extra-content {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Summary Panel */
+.customizer-summary {
+    background: linear-gradient(135deg, #f0f4f8, #e8eef4);
+    padding: 18px 25px;
+    flex-shrink: 0;
+}
+
+.customizer-summary h3 {
+    color: #0059BD;
+    font-size: 1.1rem;
+    margin: 0 0 12px 0;
+    font-family: 'Cairo', sans-serif;
+    text-align: center;
+}
+
+#packageSummary {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+#packageSummary p {
+    color: #666;
+    text-align: center;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+#packageSummary .summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.8rem;
+}
+
+#packageSummary .summary-item:last-child {
+    border-bottom: none;
+}
+
+#packageSummary .summary-item .item-name {
+    color: #333;
+}
+
+#packageSummary .summary-item .item-price {
+    color: #ff8c00;
+    font-weight: bold;
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 2px solid #ddd;
+    margin-bottom: 12px;
+}
+
+.total-price span {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.total-price strong {
+    font-size: 1.8rem;
+    color: #ff8c00;
+}
+
+.btn-book-custom {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ff8c00, #ff6b00);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.3);
+    font-family: 'Cairo', sans-serif;
+}
+
+.btn-book-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+}
+
+.btn-book-custom i {
+    margin-left: 8px;
+}
+
+/* Night Mode Support */
+body.night-mode .customizer-container {
+    background: #1a1a2e;
+}
+
+body.night-mode .customizer-step {
+    border-bottom-color: #2d2d44;
+}
+
+body.night-mode .duration-label,
+body.night-mode .walking-value {
+    color: #ddd;
+}
+
+body.night-mode .care-option-content,
+body.night-mode .activity-content,
+body.night-mode .extra-content {
+    background: #2d2d44;
+    border-color: #3d3d5a;
+}
+
+body.night-mode .care-option-content span,
+body.night-mode .activity-content span,
+body.night-mode .extra-content span {
+    color: #ddd;
+}
+
+body.night-mode #packageSummary {
+    background: #2d2d44;
+}
+
+body.night-mode .customizer-summary {
+    background: linear-gradient(135deg, #2d2d44, #252538);
+}
+
+body.night-mode .total-price span {
+    color: #ddd;
+}
+
+body.night-mode .step-number {
+    background: #ffa64d;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .care-level-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .activities-grid,
+    .extras-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .customizer-container {
+        max-height: 90vh;
+    }
+    
+    .customizer-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .btn-customizer {
+        font-size: 1rem;
+        padding: 14px 25px;
+    }
+}
+
+@media (max-width: 400px) {
+    .activities-grid,
+    .extras-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .total-price strong {
+        font-size: 1.5rem;
+    }
+}
+
+/* ===== Package Recommender Styles ===== */
+
+/* Option Buttons */
+.option-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.option-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+.option-btn:hover {
+    border-color: #0059BD;
+    background: #f0f7ff;
+    transform: translateX(-5px);
+}
+
+.option-btn i {
+    font-size: 1.5rem;
+    color: #0059BD;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+}
+
+.option-btn span {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.option-btn small {
+    display: block;
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+/* Recommender Steps */
+.recommender-step {
+    display: none;
+}
+
+.recommender-step.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Recommendation Result */
+.recommendation-result {
+    text-align: center;
+}
+
+.recommended-badge {
+    background: linear-gradient(135deg, #0059BD, #004494);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.recommended-badge i {
+    margin-left: 8px;
+}
+
+.recommended-package {
+    margin-bottom: 20px;
+}
+
+.package-result-card {
+    background: linear-gradient(135deg, #fff8f0, #fff0e0);
+    border: 3px solid #ff8c00;
+    border-radius: 25px;
+    padding: 30px;
+    display: inline-block;
+}
+
+.package-result-card i {
+    font-size: 3rem;
+    color: #ff8c00;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.package-result-card h3 {
+    color: #0059BD;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.result-price {
+    font-size: 2.5rem;
+    color: #ff8c00;
+    font-weight: bold;
+}
+
+.result-price span {
+    font-size: 1rem;
+    color: #666;
+}
+
+.recommendation-reason {
+    margin-bottom: 25px;
+}
+
+.reason-box {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    display: inline-block;
+    text-align: right;
+    max-width: 100%;
+}
+
+.reason-box i {
+    color: #ffc107;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.reason-box p {
+    color: #333;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Comparison Table */
+.comparison-section {
+    margin: 25px 0;
+    text-align: right;
+}
+
+.comparison-section h4 {
+    color: #0059BD;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.comparison-table {
+    overflow-x: auto;
+}
+
+.comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.comparison-table th {
+    background: #0059BD;
+    color: white;
+    font-weight: bold;
+}
+
+.comparison-table th:first-child {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+/* Navigation Buttons */
+.recommender-nav {
+    margin-top: 20px;
+}
+
+.back-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+
+.back-btn:hover {
+    background: #5a6268;
+    transform: translateX(5px);
+}
+
+.back-btn i {
+    margin-left: 8px;
+}
+
+/* Restart Button */
+.restart-btn {
+    background: none;
+    border: none;
+    color: #0059BD;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+
+.restart-btn:hover {
+    color: #ff8c00;
+}
+
+.restart-btn i {
+    margin-left: 5px;
+}
+
+/* Night Mode Support */
+body.night-mode .option-btn {
+    background: #2d2d44;
+    border-color: #3d3d5a;
+}
+
+body.night-mode .option-btn:hover {
+    background: #3d3d5a;
+    border-color: #4d8cd4;
+}
+
+body.night-mode .option-btn i {
+    background: #1a1a2e;
+    color: #4d8cd4;
+}
+
+body.night-mode .option-btn span {
+    color: #e0e0e0;
+}
+
+body.night-mode .option-btn small {
+    color: #aaa;
+}
+
+body.night-mode .package-result-card {
+    background: linear-gradient(135deg, #2d2d44, #252538);
+}
+
+body.night-mode .package-result-card h3 {
+    color: #4d8cd4;
+}
+
+body.night-mode .reason-box {
+    background: #2d2d44;
+}
+
+body.night-mode .reason-box p {
+    color: #e0e0e0;
+}
+
+body.night-mode .comparison-table table {
+    background: #2d2d44;
+}
+
+body.night-mode .comparison-table th {
+    background: #004494;
+}
+
+body.night-mode .comparison-table td {
+    color: #e0e0e0;
+    border-color: #3d3d5a;
+}
+
+body.night-mode .comparison-table tr:nth-child(even) {
+    background: #252538;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .option-btn {
+        padding: 12px 15px;
+    }
+    
+    .option-btn i {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+    
+    .option-btn span {
+        font-size: 1rem;
+    }
+    
+    .package-result-card {
+        padding: 20px;
+    }
+    
+    .package-result-card h3 {
+        font-size: 1.4rem;
+    }
+    
+    .result-price {
+        font-size: 2rem;
+    }
+}
